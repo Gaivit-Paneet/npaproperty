@@ -6,7 +6,7 @@ export class NpanewsController {
   constructor(private readonly npanewsService: NpanewsService) {}
 
   @Get('news')
-  async getAll(@Query() q : {pages:string,limits:string}){
+  async getAll(@Query() q ?: {pages:string,limits:string}){
     return await this.npanewsService.getAll(+q.pages,+q.limits)
   }
   
@@ -15,5 +15,14 @@ export class NpanewsController {
   {
       return await this.npanewsService.getById(id,+q.pages,+q.limits)
   } 
-
+  
+  @Get('recommend')
+  async getAllRecommended(@Query() q ?: {pages:string,limits:string}){
+    return await this.npanewsService.getAllRecommended(+q.pages,+q.limits)
+  }
+  @Get('recommend/:npanews_id')
+  async getRecommendedById(@Param('npanews_id') id : number,@Query() q ?: {pages:string,limits:string})
+  {
+      return await this.npanewsService.getRecommendedById(id,+q.pages,+q.limits)
+  } 
 }
